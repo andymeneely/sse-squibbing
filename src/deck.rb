@@ -7,7 +7,8 @@ require_relative 'version'
 
 # Download from Google Docs:
 
-url = ''
+url = File.read('gsheets_url.txt')
+# 'https://docs.google.com/spreadsheets/d/1ZX0d0UIvEaAU8RIbng_tvzseggs1d3OIhBFWl6-NsbA/export?format=csv'
 response = HTTParty.get(url)
 raise response unless response.success?
 File.open('data/sse.csv', 'w+') { |f| f.write response.body }
