@@ -1,19 +1,30 @@
 require 'squib'
+require 'httparty'
 require_relative 'version'
 
 # Note: run this code by running "rake" at the command line
 # To see full list of options, run "rake -T"
 
-data = Squib.xlsx file: 'data/game.xlsx', sheet: 0
+# Download from Google Docs:
+
+url = ''
+response = HTTParty.get(url)
+raise response unless response.success?
+File.open('data/sse.csv', 'w+') { |f| f.write response.body }
+
+data = Squib.csv file: 'data/sse.csv'
+
+File.open('data/sse.txt', 'w+') {|f| f.write(data.to_pretty_text)}
 
 Squib::Deck.new(cards: data.nrows) do
   background color: :white
   use_layout file: 'layouts/deck.yml'
 
   text str: data.name, layout: :name
+  text str: data.description, layout: :ATK
 
-  text str: data.atk.map { |s| "#{s} ATK" }, layout: :ATK
-  text str: data.def.map { |s| "#{s} DEF" }, layout: :DEF
+  # text str: data.atk.map { |s| "#{s} ATK" }, layout: :ATK
+  # text str: data.def.map { |s| "#{s} DEF" }, layout: :DEF
 
   svg file: 'example.svg'
 
@@ -26,9 +37,4 @@ Squib::Deck.new(cards: data.nrows) do
 
   save format: :png
 
-  build(:pnp) do
-    save_sheet prefix: 'pnp_sheet_',
-               trim: '0.125in',
-               rows: 3, columns: 3
-  end
 end
