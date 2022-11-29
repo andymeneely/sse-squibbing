@@ -1,4 +1,5 @@
             ╭------------------------------------╮
-       Name | Example                            |
-Description | Hello, Kelly?!?!                   |
+       Name | Vikings                            |
+Description | More meat!                         |
+       Icon | drakkar                            |
             ╰------------------------------------╯

@@ -4,6 +4,7 @@ gem 'squib'
 gem 'guard'
 gem 'guard-rake'
 gem 'httparty'
+gem 'game_icons'
 
 # If you do any simulation or anything fancy, you might want this
 # gem 'rspec' # Unit testing with behavior-driven development

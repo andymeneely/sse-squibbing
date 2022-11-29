@@ -13,6 +13,7 @@ GEM
     ffi (1.15.5)
     fiddle (1.1.0)
     formatador (1.1.0)
+    game_icons (0.45.0.20210930)
     gdk_pixbuf2 (3.5.1)
       gio2 (= 3.5.1)
     gio2 (3.5.1)
@@ -100,6 +101,7 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  game_icons
   guard
   guard-rake
   httparty
