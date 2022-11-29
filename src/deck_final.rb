@@ -1,12 +1,6 @@
 require 'squib'
 require 'httparty'
 require 'game_icons'
-require_relative 'version'
-
-# Note: run this code by running "rake" at the command line
-# To see full list of options, run "rake -T"
-
-# Download from Google Docs:
 
 url = File.read('gsheets_url.txt')
 response = HTTParty.get(url)
@@ -18,27 +12,41 @@ data = Squib.csv file: 'data/sse.csv'
 File.open('data/sse.txt', 'w+') {|f| f.write(data.to_pretty_text)}
 
 Squib::Deck.new(cards: data.nrows) do
-  background color: "#a8dadc"
+  background color: "#f5ebe0"
+
   use_layout file: 'layouts/deck.yml'
 
   text str: data.name, layout: :name
-  text str: data.description, layout: :ATK
+  text str: data.description, layout: :description #, hint: :red
 
+	svg layout: :weapon,
+	    data: GameIcons.get('crossbow').recolor(fg: '333', bg: 'fff0').string
 
+  icons = data.icon.map do |str|
+    GameIcons.get(str)&.recolor(fg: '333', bg: 'fff0').string
+  end
+  svg layout: :icon, data: icons
 
-  # text str: data.atk.map { |s| "#{s} ATK" }, layout: :ATK
-  # text str: data.def.map { |s| "#{s} DEF" }, layout: :DEF
+  png layout: :art,
+      file: data.name.map {|n| "#{n.downcase}.png"}
 
-  svg file: 'example.svg'
+  png layout: :grit
 
-	svg layout: :health,
-	    data: GameIcons.get('glass-heart').recolor(fg: '333', bg: 'fff0').string
+  rect layout: :whole_card_gradient
 
-  text str: MySquibGame::VERSION, layout: :version
+  showcase trim: 37.5, trim_radius: 37.5
+
+  save_sheet prefix: 'sheet_',
+              columns: 2, rows: 2,
+              margin: 75, gap: 5, trim: 37
+
+  save_png prefix: 'figure_', range: 0,
+       trim_radius: 37.5, trim: 37.5, shadow_radius: 15
+
 
   # build(:proofs) do
-    safe_zone
-    cut_zone
+    # safe_zone
+    # cut_zone
   # end
 
   save format: :png
