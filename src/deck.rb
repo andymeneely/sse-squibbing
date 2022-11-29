@@ -14,17 +14,17 @@ File.open('data/sse.txt', 'w+') {|f| f.write(data.to_pretty_text)}
 
 Squib::Deck.new(cards: data.nrows) do
   background color: "#f5ebe0"
+
   use_layout file: 'layouts/deck.yml'
 
   text str: data.name, layout: :name
-  text str: data.description,
-       layout: :description #, hint: :red
+  text str: data.description, layout: :description #, hint: :red
 
 	svg layout: :weapon,
 	    data: GameIcons.get('crossbow').recolor(fg: '333', bg: 'fff0').string
 
   icons = data.icon.map do |str|
-    GameIcons.get(str).recolor(fg: '333', bg: 'fff0').string
+    GameIcons.get(str)&.recolor(fg: '333', bg: 'fff0').string
   end
   svg layout: :icon, data: icons
 
@@ -37,16 +37,18 @@ Squib::Deck.new(cards: data.nrows) do
 
   showcase trim: 37.5, trim_radius: 37.5
 
-  save_sheet pref
+  save_sheet prefix: 'sheet_',
+              columns: 2, rows: 2,
+              margin: 75, gap: 5, trim: 37
 
   save_png prefix: 'figure_', range: 0,
        trim_radius: 37.5, trim: 37.5, shadow_radius: 15
+
 
   # build(:proofs) do
     # safe_zone
     # cut_zone
   # end
-
 
   save format: :png
 

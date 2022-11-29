@@ -3,3 +3,8 @@
 Description | More meat!                         |
        Icon | drakkar                            |
             ╰------------------------------------╯
+            ╭------------------------------------╮
+       Name | Ninjas                             |
+Description | Deadly and silent!                 |
+       Icon | running-ninja                      |
+            ╰------------------------------------╯
