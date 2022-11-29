@@ -35,13 +35,22 @@ grit:
   y: 0
   width: 1200
   height: 1200
-  blend: overlay
+  # blend: overlay
+  alpha: 0.15
 
 icon:
   x: deck - 180
   y: 90
   width: 75
   height: 75
+
+whole_card_gradient:
+  x: 0
+  y: 0
+  width: 825
+  height: 1125
+  fill_color: |
+    (0,0)(825,1125) #fff8@0.0 #0008@1.0
 
 
 version:

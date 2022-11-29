@@ -33,13 +33,20 @@ Squib::Deck.new(cards: data.nrows) do
 
   png layout: :grit
 
+  rect layout: :whole_card_gradient
+
+  showcase trim: 37.5, trim_radius: 37.5
+
+  save_sheet pref
+
   save_png prefix: 'figure_', range: 0,
        trim_radius: 37.5, trim: 37.5, shadow_radius: 15
 
   # build(:proofs) do
-    safe_zone
-    cut_zone
+    # safe_zone
+    # cut_zone
   # end
+
 
   save format: :png
 
